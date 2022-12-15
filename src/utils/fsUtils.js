@@ -16,7 +16,9 @@ async function readJson() {
 async function writeJson(newElement) {
   try {
     const oldDB = await readJson();
-    const allDB = JSON.stringify([...oldDB, newElement]);
+    const newElementWhithId = { id: oldDB.length + 1, ...newElement };
+    console.log(newElementWhithId);
+    const allDB = JSON.stringify([...oldDB, newElementWhithId]);
     await fs.writeFile(path.resolve(__dirname, DATA_PATH), allDB);
     return 'Retornar o token';
   } catch (error) {
