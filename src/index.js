@@ -1,5 +1,6 @@
 const express = require('express');
 const crypto = require('crypto');
+const { validate } = require('./middlewares/validateLogin');
 const { readJson, writeJson } = require('./utils/fsUtils');
 
 const app = express();
@@ -40,9 +41,9 @@ app.get('/talker/:id', async (request, response) => {
 
 const generateToken = () => crypto.randomBytes(8).toString('hex');
 
-// req 3
+// req 3 e 4
 
-app.post('/login', async (req, res) => {
+app.post('/login', validate, async (req, res) => {
   const newLogin = req.body;
   const login = await writeJson(newLogin);
   console.log(login);
