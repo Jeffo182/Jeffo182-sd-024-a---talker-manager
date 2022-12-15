@@ -1,5 +1,6 @@
 const express = require('express');
-const { readJson } = require('./utils/fsUtils');
+const crypto = require('crypto');
+const { readJson, writeJson } = require('./utils/fsUtils');
 
 const app = express();
 app.use(express.json());
@@ -36,6 +37,17 @@ app.get('/talker/:id', async (request, response) => {
     }
     return response.status(HTTP_OK_STATUS).send(filterById);
 });
+
+const generateToken = () => crypto.randomBytes(8).toString('hex');
+
+// req 3
+
+app.post('/login', async (req, res) => {
+  const newLogin = req.body;
+  const login = await writeJson(newLogin);
+  console.log(login);
+  return res.status(HTTP_OK_STATUS).json({ token: generateToken() });
+ });
 
 app.listen(PORT, () => {
   console.log('Online');

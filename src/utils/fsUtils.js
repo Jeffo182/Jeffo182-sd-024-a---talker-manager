@@ -1,9 +1,11 @@
 const fs = require('fs').promises;
 const path = require('path');
 
+const DATA_PATH = '../talker.json';
+
 async function readJson() {
   try {
-    const data = await fs.readFile(path.resolve(__dirname, '../talker.json'));
+    const data = await fs.readFile(path.resolve(__dirname, DATA_PATH));
     const dataPased = JSON.parse(data);
     return dataPased;
   } catch (error) {
@@ -11,6 +13,18 @@ async function readJson() {
   }
 }
 
+async function writeJson(newElement) {
+  try {
+    const oldDB = await readJson();
+    const allDB = JSON.stringify([...oldDB, newElement]);
+    await fs.writeFile(path.resolve(__dirname, DATA_PATH), allDB);
+    return 'Retornar o token';
+  } catch (error) {
+    console.error(`Erro na escrita do arquivo ${error}`);
+  }
+}
+
 module.exports = {
   readJson,
+  writeJson,
 };
