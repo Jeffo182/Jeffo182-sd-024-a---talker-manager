@@ -26,7 +26,24 @@ async function writeJson(newElement) {
   }
 }
 
+async function updateJson(id, updatedElement) {
+    const oldDB = await readJson();
+    const newElementWhithId = { id: oldDB.length + 1, ...updatedElement };
+    const updatedTalkers = oldDB.reduce((talkersList, currentTalker) => {
+      if (currentTalker.id === newElementWhithId.id) return [...talkersList, newElementWhithId];
+      return [...talkersList, currentTalker];
+    }, []);
+    const updatedData = JSON.stringify(updatedTalkers);
+    try {
+      await fs.writeFile(path.resolve(__dirname, DATA_PATH), updatedData);
+      return newElementWhithId;
+    } catch (error) {
+      console.error(`Erro na escrita do arquivo ${error}`);
+    }
+}
+
 module.exports = {
   readJson,
   writeJson,
+  updateJson,
 };
