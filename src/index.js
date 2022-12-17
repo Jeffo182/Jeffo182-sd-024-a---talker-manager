@@ -105,6 +105,17 @@ app.put(
   },
 );
 
+// // REQ 7
+
+app.delete('/talker/:id', auth, (request, response) => {
+  const { id } = request.params;
+  const data = newFs.readFileSync(DATA_PATH, 'utf-8');
+  const dataPasrse = JSON.parse(data);
+  const deleteTalkers = dataPasrse.filter((talker) => talker.id !== Number(id));
+  newFs.writeFileSync(DATA_PATH, JSON.stringify([deleteTalkers]));
+  response.status(204).json();
+});
+
 app.listen(PORT, () => {
   console.log('Online');
 });
