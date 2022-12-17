@@ -68,6 +68,7 @@ app.post('/login', validate, async (req, res) =>
   validateTalk,
   validateWatchedAt,
   validateRage,
+  validateRate,
   async (req, res) => {
     const newTalker = req.body;
     await writeJson(newTalker);
@@ -85,13 +86,17 @@ app.put(
   validateAge,
   validateTalk,
   validateWatchedAt,
-  validateRate,
   validateRate1,
+  validateRate,
+
   async (req, res) => {
     const { id } = req.params;
     const talkerEdit = req.body;
-    const updatedTalker = await updateJson(id, talkerEdit);
-    return res.status(HTTP_OK_STATUS).json(updatedTalker);
+    await updateJson(id, talkerEdit);
+
+    const db = await readJson();
+    const result = db.find((element) => element.id === Number(id));
+    return res.status(200).json(result);
   },
 );
 

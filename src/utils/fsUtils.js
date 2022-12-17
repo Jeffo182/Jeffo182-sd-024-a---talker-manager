@@ -26,15 +26,16 @@ async function writeJson(newElement) {
   }
 }
 
-async function updateJson(id, updatedElement) {
+async function updateJson(idparam, updatedElement) {
     const oldDB = await readJson();
-    const newElementWhithId = { id: oldDB.length + 1, ...updatedElement };
+    const newElementWhithId = { idparam, ...updatedElement };
     const updatedTalkers = oldDB.reduce((talkersList, currentTalker) => {
       if (currentTalker.id === newElementWhithId.id) return [...talkersList, newElementWhithId];
       return [...talkersList, currentTalker];
     }, []);
-    const updatedData = JSON.stringify(updatedTalkers);
+    
     try {
+      const updatedData = JSON.stringify(updatedTalkers);
       await fs.writeFile(path.resolve(__dirname, DATA_PATH), updatedData);
       return newElementWhithId;
     } catch (error) {
