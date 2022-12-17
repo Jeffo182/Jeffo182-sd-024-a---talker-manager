@@ -1,5 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
+const newFs = require('fs');
+const path = require('path');
 
 const auth = require('./middlewares/auth');
 const validateName = require('./middlewares/validateName');
@@ -11,7 +13,7 @@ const validateRate = require('./middlewares/validateRate');
 const validateRate1 = require('./middlewares/validateRate1');
 
 const { validate } = require('./middlewares/validateLogin');
-const { readJson, writeJson, updateJson } = require('./utils/fsUtils');
+const { readJson, writeJson } = require('./utils/fsUtils');
 
 const app = express();
 app.use(express.json());
@@ -78,6 +80,7 @@ app.post('/login', validate, async (req, res) =>
 );
 
 // req 6
+const DATA_PATH = path.resolve(__dirname, './talker.json');
 
 app.put(
   '/talker/:id',
@@ -89,14 +92,16 @@ app.put(
   validateRate1,
   validateRate,
 
-  async (req, res) => {
+  (req, res) => {
     const { id } = req.params;
     const talkerEdit = req.body;
-    await updateJson(id, talkerEdit);
-
-    const db = await readJson();
-    const result = db.find((element) => element.id === Number(id));
-    return res.status(200).json(result);
+    const data = newFs.readFileSync(DATA_PATH, 'utf-8');
+    const dataPasrse = JSON.parse(data);
+    const result = dataPasrse.find((element) => element.id === Number(id));
+    const otherTalkers = dataPasrse.filter((element) => element.id !== Number(id));
+    const talkerUpdate = { ...result, ...talkerEdit };
+    newFs.writeFileSync(DATA_PATH, JSON.stringify([...otherTalkers, talkerUpdate]));
+    return res.status(200).json(talkerUpdate);
   },
 );
 
