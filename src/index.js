@@ -23,6 +23,7 @@ const HTTP_CREATED_STATUS = 201;
 
 const HTTP_FAIL_STATUS = 404;
 const PORT = '3000';
+const caminhoTalker = path.resolve(__dirname, './talker.json');
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_req, res) => {
@@ -115,6 +116,21 @@ app.delete('/talker/:id', auth, (request, response) => {
   newFs.writeFileSync(DATA_PATH, JSON.stringify([deleteTalkers]));
   response.status(204).json();
 });
+
+// // req 8
+// /talker/search?q=searchTerm
+
+const funcaoAux = (req, res) => {
+  const querySearch = req.query.q;
+  const talkers = JSON.parse(newFs.readFileSync(caminhoTalker, 'utf-8'));
+  if (!querySearch) {
+    return res.status(HTTP_OK_STATUS).json(talkers);
+  }
+  const searchTalkers = talkers.filter((talker) => talker.name.includes(querySearch));
+  return res.status(HTTP_OK_STATUS).json(searchTalkers);
+};
+
+app.get('/talker/search', auth, funcaoAux);
 
 app.listen(PORT, () => {
   console.log('Online');
