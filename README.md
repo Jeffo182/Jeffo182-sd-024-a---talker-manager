@@ -23,7 +23,7 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get a free API Key at [https://github.com/Jeffo182/Talker-Manager-API)
 2. Clone the repo
    ```sh
    git clone git@github.com:Jeffo182/Talker-Manager-API.git
