@@ -1,26 +1,17 @@
-
-<!-- Esse README vem de um repositório que possui exemplo de templates de README. Para mais informações
-acesse: https://github.com/othneildrew/Best-README-Template
- -->
-<a name="readme-top"></a>
-
-[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/jefferson-felix/]
-
 <h3 align="center">Talker Manager</h3>
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+This is a talkers registration application to register, view, search, edit and delete information.
+Project summary: 
+API of a CRUD (Create, Read, Update and Delete) of speakers (talkers) and; Some endpoints for reading and writing to a file using the fs module.
 
+
+#[pt_br]#
 Esta e uma aplicação de cadastro de talkers (palestrantes) para cadastrar, visualizar, pesquisar, editar e excluir informações. 
-
 Resumo do projeto:
 API de um CRUD (Create, Read, Update e Delete) de palestrantes (talkers) e;
 Alguns endpoints de leitura e escrita em um arquivo utilizando o módulo fs.
 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Prerequisites
 
@@ -42,10 +33,6 @@ This is an example of how to list things you need to use the software and how to
    npm install
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -59,16 +46,10 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-
-<!-- CONTACT -->
 ## Contact
 
 Jefferson Felix - [Linkedin](https://www.linkedin.com/in/jefferson-felix/) - jefferson.felix182@gmail.com
 
 Project Link: [https://github.com/Jeffo182/Talker-Manager-API](https://github.com/Jeffo182/Talker-Manager-API)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
